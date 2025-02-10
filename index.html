@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #fff5f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .letter {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .daisy {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+        }
+
+        .daisy::before {
+            content: '🌼';
+            font-size: 30px;
+            animation: swing 3s infinite;
+            position: absolute;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .car-part {
+            position: absolute;
+            opacity: 0.2;
+        }
+
+        .car-part::before {
+            content: '🔧';
+            font-size: 24px;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff6b6b;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="letter">
+            <h1> To My Dearest Baby!</h1>
+            <div id="content1">
+                <p>Happy Valentine's Day to my amazing hubby! 🌹</p>
+                <button onclick="showNext(1)">Click to continue ❤️</button>
+            </div>
+            <div id="content2" class="hidden">
+                <p>Just like how you piece together cars with such passion,<br>
+                You've assembled all the perfect parts of my heart.</p>
+                <button onclick="showNext(2)">Next ❤️</button>
+            </div>
+            <div id="content3" class="hidden">
+                <p>Like these daisies that bring joy to your day,<br>
+                You bring endless happiness to mine.</p>
+                <button onclick="showNext(3)">Keep going ❤️</button>
+            </div>
+            <div id="content4" class="hidden">
+                <p>no matter how many miles separate us, my heart is always right there with you. You are my favorite feeling, my sweetest thought, and my happiest place. I love you endlessly.</p>
+                <p>With all my love,<br>Yours Wifey❤️</p>
+                <button onclick="restart()">Read again ❤️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add floating elements
+        function addFloatingElements() {
+            const container = document.querySelector('.container');
+            
+            // Add daisies
+            for(let i = 0; i < 8; i++) {
+                const daisy = document.createElement('div');
+                daisy.className = 'daisy';
+                daisy.style.left = Math.random() * 100 + '%';
+                daisy.style.top = Math.random() * 100 + '%';
+                container.appendChild(daisy);
+            }
+            
+            // Add car parts
+            for(let i = 0; i < 6; i++) {
+                const part = document.createElement('div');
+                part.className = 'car-part';
+                part.style.left = Math.random() * 100 + '%';
+                part.style.top = Math.random() * 100 + '%';
+                container.appendChild(part);
+            }
+            
+            // Add hearts
+            for(let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Show next content
+        function showNext(current) {
+            document.getElementById('content' + current).classList.add('hidden');
+            document.getElementById('content' + (current + 1)).classList.remove('hidden');
+        }
+
+        // Restart the letter
+        function restart() {
+            for(let i = 1; i <= 4; i++) {
+                document.getElementById('content' + i).classList.add('hidden');
+            }
+            document.getElementById('content1').classList.remove('hidden');
+        }
+
+        // Initialize
+        addFloatingElements();
+    </script>
+</body>
+</html>
